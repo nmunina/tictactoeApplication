@@ -3,13 +3,15 @@ package tictactoeapplication;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class TicTacToeApplication {
 
     public static void main(String[] args) throws IOException {
 
         // getting inputs
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Scanner sc = new Scanner(System.in);
+        //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean doYouWantToPlay = true;
 
         while (doYouWantToPlay) {
@@ -18,9 +20,9 @@ public class TicTacToeApplication {
                     "But first you must pick up the caracter you want to be and which character I will be.");
 
             System.out.println("Enter a single character that will represent you");
-            char playerToken = (char) reader.read();
+            char playerToken = sc.next().charAt(0);
             System.out.println("Enter the character that will represent your opponent on the board");
-            char opponentToken = (char) reader.read();
+            char opponentToken = sc.next().charAt(0);
 
             TicTacToe game = new TicTacToe(playerToken, opponentToken);
             AI ai = new AI();
@@ -35,11 +37,11 @@ public class TicTacToeApplication {
                 if (game.currentMarker == game.userMarker) {
                     // user turn
                     System.out.println("It's your turn. Enter a spot for your token.");
-                    int spot = Integer.parseInt(reader.readLine());
+                    int spot = sc.nextInt();
 
                     while (!game.playTurn(spot)) {
                         System.out.println("Try again. " + spot + " is invalid or out of range.");
-                        spot = Integer.parseInt(reader.readLine());
+                        spot = sc.nextInt();
                     }
 
                     System.out.println("You picked " + spot + "!");
@@ -64,15 +66,12 @@ public class TicTacToeApplication {
 
             System.out.println("Do you want to play again? Print Y if you do, or anything else if you are tired.");
 
-            char response = (char) reader.read();
+            char response = sc.next().charAt(0);
 
             doYouWantToPlay = (response == 'Y');
             System.out.println();
             System.out.println();
-            
-
-
         }
+        sc.close();
     }
-
 }
